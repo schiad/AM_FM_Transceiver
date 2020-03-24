@@ -1,0 +1,426 @@
+EESchema Schematic File Version 4
+LIBS:Transceiver-cache
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 5 5
+Title "AM & FM Transceiver"
+Date ""
+Rev ""
+Comp "F4IFB"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:+12V #PWR?
+U 1 1 5E77C738
+P 4100 1950
+AR Path="/5E77AF45/5E77C738" Ref="#PWR?"  Part="1" 
+AR Path="/5E7940EB/5E77C738" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4100 1800 50  0001 C CNN
+F 1 "+12V" V 4115 2078 50  0000 L CNN
+F 2 "" H 4100 1950 50  0001 C CNN
+F 3 "" H 4100 1950 50  0001 C CNN
+	1    4100 1950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E77C8F5
+P 4050 4800
+AR Path="/5E77AF45/5E77C8F5" Ref="#PWR?"  Part="1" 
+AR Path="/5E7940EB/5E77C8F5" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4050 4550 50  0001 C CNN
+F 1 "GND" V 4055 4672 50  0000 R CNN
+F 2 "" H 4050 4800 50  0001 C CNN
+F 3 "" H 4050 4800 50  0001 C CNN
+	1    4050 4800
+	0    1    1    0   
+$EndComp
+Text HLabel 4000 2350 0    50   Input ~ 0
+BF
+$Comp
+L Device:C C?
+U 1 1 5E77CFC7
+P 4450 2700
+AR Path="/5E77AF45/5E77CFC7" Ref="C?"  Part="1" 
+AR Path="/5E7940EB/5E77CFC7" Ref="C?"  Part="1" 
+F 0 "C?" V 4198 2700 50  0000 C CNN
+F 1 "C" V 4289 2700 50  0000 C CNN
+F 2 "" H 4488 2550 50  0001 C CNN
+F 3 "~" H 4450 2700 50  0001 C CNN
+	1    4450 2700
+	0    1    1    0   
+$EndComp
+$Comp
+L Amplifier_Operational:LM321 U?
+U 1 1 5E77E0AD
+P 5650 2800
+AR Path="/5E77AF45/5E77E0AD" Ref="U?"  Part="1" 
+AR Path="/5E7940EB/5E77E0AD" Ref="U?"  Part="1" 
+F 0 "U?" H 5994 2846 50  0000 L CNN
+F 1 "LM321" H 5994 2755 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5" H 5650 2800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm321.pdf" H 5650 2800 50  0001 C CNN
+	1    5650 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 2700 4800 2700
+Wire Wire Line
+	5550 2500 5550 1950
+$Comp
+L Transistor_BJT:2N2219 Q?
+U 1 1 5E77F5C3
+P 6450 2500
+AR Path="/5E77AF45/5E77F5C3" Ref="Q?"  Part="1" 
+AR Path="/5E7940EB/5E77F5C3" Ref="Q?"  Part="1" 
+F 0 "Q?" H 6640 2546 50  0000 L CNN
+F 1 "2N2219" H 6640 2455 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-39-3" H 6650 2425 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 6450 2500 50  0001 L CNN
+	1    6450 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:2N3906 Q?
+U 1 1 5E78036E
+P 6450 3150
+AR Path="/5E77AF45/5E78036E" Ref="Q?"  Part="1" 
+AR Path="/5E7940EB/5E78036E" Ref="Q?"  Part="1" 
+F 0 "Q?" H 6640 3196 50  0000 L CNN
+F 1 "2N3906" H 6640 3105 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6650 3075 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3906.pdf" H 6450 3150 50  0001 L CNN
+	1    6450 3150
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	6250 2500 6250 2800
+Wire Wire Line
+	5950 2800 6250 2800
+Connection ~ 6250 2800
+Wire Wire Line
+	6250 2800 6250 3150
+Wire Wire Line
+	6550 2700 6550 2800
+Wire Wire Line
+	6550 1950 6550 2300
+$Comp
+L Transistor_BJT:2N2219 Q?
+U 1 1 5E78337B
+P 7200 4050
+AR Path="/5E77AF45/5E78337B" Ref="Q?"  Part="1" 
+AR Path="/5E7940EB/5E78337B" Ref="Q?"  Part="1" 
+F 0 "Q?" H 7390 4096 50  0000 L CNN
+F 1 "2N2219" H 7390 4005 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-39-3" H 7400 3975 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 7200 4050 50  0001 L CNN
+	1    7200 4050
+	1    0    0    -1  
+$EndComp
+Connection ~ 6550 2800
+Wire Wire Line
+	6550 2800 6550 2950
+Wire Wire Line
+	7300 2800 7300 3600
+$Comp
+L Device:R R?
+U 1 1 5E785E27
+P 6850 3750
+AR Path="/5E77AF45/5E785E27" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E785E27" Ref="R?"  Part="1" 
+F 0 "R?" H 6920 3796 50  0000 L CNN
+F 1 "R" H 6920 3705 50  0000 L CNN
+F 2 "" V 6780 3750 50  0001 C CNN
+F 3 "~" H 6850 3750 50  0001 C CNN
+	1    6850 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E78636B
+P 6850 4350
+AR Path="/5E77AF45/5E78636B" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E78636B" Ref="R?"  Part="1" 
+F 0 "R?" H 6920 4396 50  0000 L CNN
+F 1 "R" H 6920 4305 50  0000 L CNN
+F 2 "" V 6780 4350 50  0001 C CNN
+F 3 "~" H 6850 4350 50  0001 C CNN
+	1    6850 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 3600 7300 3600
+Connection ~ 7300 3600
+Wire Wire Line
+	7300 3600 7300 3850
+Wire Wire Line
+	6850 3900 6850 4050
+Wire Wire Line
+	6850 4050 7000 4050
+Connection ~ 6850 4050
+Wire Wire Line
+	6850 4050 6850 4200
+Wire Wire Line
+	6850 4500 6850 4800
+Wire Wire Line
+	6550 2800 7150 2800
+Wire Wire Line
+	5550 3100 5550 4800
+Wire Wire Line
+	6550 3350 6550 4800
+Wire Wire Line
+	6550 4800 6850 4800
+Text HLabel 4050 4050 0    50   Input ~ 0
+HF
+$Comp
+L Device:C C?
+U 1 1 5E792B1B
+P 4450 4050
+AR Path="/5E77AF45/5E792B1B" Ref="C?"  Part="1" 
+AR Path="/5E7940EB/5E792B1B" Ref="C?"  Part="1" 
+F 0 "C?" V 4198 4050 50  0000 C CNN
+F 1 "C" V 4289 4050 50  0000 C CNN
+F 2 "" H 4488 3900 50  0001 C CNN
+F 3 "~" H 4450 4050 50  0001 C CNN
+	1    4450 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4300 4050 4050 4050
+Wire Wire Line
+	5550 1950 4100 1950
+Wire Wire Line
+	6550 1950 5550 1950
+Connection ~ 5550 1950
+Wire Wire Line
+	5550 4800 6550 4800
+Connection ~ 5550 4800
+Connection ~ 6550 4800
+Wire Wire Line
+	4600 4050 6850 4050
+Text Notes 6700 2650 0    50   ~ 0
+2n2222
+Text Notes 6750 3200 0    50   ~ 0
+2n2907
+Text Notes 7450 4200 0    50   ~ 0
+AFT05MS003N
+Text HLabel 7700 4600 2    50   Input ~ 0
+AM_Out
+Wire Wire Line
+	7700 4600 7300 4600
+Wire Wire Line
+	7300 4600 7300 4250
+$Comp
+L Device:R R?
+U 1 1 5E79F504
+P 5250 3100
+AR Path="/5E77AF45/5E79F504" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E79F504" Ref="R?"  Part="1" 
+F 0 "R?" H 5320 3146 50  0000 L CNN
+F 1 "R" H 5320 3055 50  0000 L CNN
+F 2 "" V 5180 3100 50  0001 C CNN
+F 3 "~" H 5250 3100 50  0001 C CNN
+	1    5250 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E79FAFC
+P 4800 3100
+AR Path="/5E77AF45/5E79FAFC" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E79FAFC" Ref="R?"  Part="1" 
+F 0 "R?" H 4870 3146 50  0000 L CNN
+F 1 "R" H 4870 3055 50  0000 L CNN
+F 2 "" V 4730 3100 50  0001 C CNN
+F 3 "~" H 4800 3100 50  0001 C CNN
+	1    4800 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E7A1528
+P 5250 2350
+AR Path="/5E77AF45/5E7A1528" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E7A1528" Ref="R?"  Part="1" 
+F 0 "R?" H 5320 2396 50  0000 L CNN
+F 1 "R" H 5320 2305 50  0000 L CNN
+F 2 "" V 5180 2350 50  0001 C CNN
+F 3 "~" H 5250 2350 50  0001 C CNN
+	1    5250 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E7A1532
+P 4800 2350
+AR Path="/5E77AF45/5E7A1532" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E7A1532" Ref="R?"  Part="1" 
+F 0 "R?" H 4870 2396 50  0000 L CNN
+F 1 "R" H 4870 2305 50  0000 L CNN
+F 2 "" V 4730 2350 50  0001 C CNN
+F 3 "~" H 4800 2350 50  0001 C CNN
+	1    4800 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E7A2840
+P 4100 2200
+AR Path="/5E77AF45/5E7A2840" Ref="#PWR?"  Part="1" 
+AR Path="/5E7940EB/5E7A2840" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4100 2050 50  0001 C CNN
+F 1 "+5V" V 4115 2328 50  0000 L CNN
+F 2 "" H 4100 2200 50  0001 C CNN
+F 3 "" H 4100 2200 50  0001 C CNN
+	1    4100 2200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4100 2200 4800 2200
+Wire Wire Line
+	4800 2500 4800 2700
+Connection ~ 4800 2700
+Wire Wire Line
+	4800 2700 4600 2700
+Wire Wire Line
+	4800 2700 4800 2800
+Wire Wire Line
+	4800 3250 4800 4800
+Connection ~ 4800 4800
+Wire Wire Line
+	4800 4800 5250 4800
+Wire Wire Line
+	5250 3250 5250 4800
+Connection ~ 5250 4800
+Wire Wire Line
+	5250 4800 5550 4800
+Wire Wire Line
+	5350 2900 5250 2900
+Wire Wire Line
+	5250 2900 5250 2950
+Wire Wire Line
+	5250 2900 5250 2500
+Connection ~ 5250 2900
+Wire Wire Line
+	5250 2200 5250 2150
+Wire Wire Line
+	5250 2150 7300 2150
+Wire Wire Line
+	7300 2150 7300 2800
+Connection ~ 7300 2800
+Text HLabel 4050 3150 0    50   Output ~ 0
+Feed_BackBFin
+Text HLabel 4050 3400 0    50   Output ~ 0
+Feed_BackBFout
+Wire Wire Line
+	4800 2800 4600 2800
+Wire Wire Line
+	4600 2800 4600 3150
+Wire Wire Line
+	4600 3150 4050 3150
+Connection ~ 4800 2800
+Wire Wire Line
+	4800 2800 4800 2950
+$Comp
+L Device:R R?
+U 1 1 5E7AE995
+P 4250 3650
+AR Path="/5E77AF45/5E7AE995" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E7AE995" Ref="R?"  Part="1" 
+F 0 "R?" H 4320 3696 50  0000 L CNN
+F 1 "R" H 4320 3605 50  0000 L CNN
+F 2 "" V 4180 3650 50  0001 C CNN
+F 3 "~" H 4250 3650 50  0001 C CNN
+	1    4250 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E7B24BE
+P 4500 3400
+AR Path="/5E77AF45/5E7B24BE" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E7B24BE" Ref="R?"  Part="1" 
+F 0 "R?" H 4570 3446 50  0000 L CNN
+F 1 "R" H 4570 3355 50  0000 L CNN
+F 2 "" V 4430 3400 50  0001 C CNN
+F 3 "~" H 4500 3400 50  0001 C CNN
+	1    4500 3400
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4350 3400 4250 3400
+Wire Wire Line
+	4250 3500 4250 3400
+Connection ~ 4250 3400
+Wire Wire Line
+	4250 3400 4050 3400
+Connection ~ 7150 2800
+Wire Wire Line
+	7150 2800 7300 2800
+Wire Wire Line
+	4050 4800 4250 4800
+Wire Wire Line
+	4650 3400 7150 3400
+Wire Wire Line
+	7150 2800 7150 3400
+Wire Wire Line
+	4250 3800 4250 4800
+Connection ~ 4250 4800
+Wire Wire Line
+	4250 4800 4800 4800
+$Comp
+L Device:R R?
+U 1 1 5E7A93B8
+P 4200 2500
+AR Path="/5E77AF45/5E7A93B8" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E7A93B8" Ref="R?"  Part="1" 
+F 0 "R?" H 4270 2546 50  0000 L CNN
+F 1 "R" H 4270 2455 50  0000 L CNN
+F 2 "" V 4130 2500 50  0001 C CNN
+F 3 "~" H 4200 2500 50  0001 C CNN
+	1    4200 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E7ACA5B
+P 4200 2900
+AR Path="/5E77AF45/5E7ACA5B" Ref="R?"  Part="1" 
+AR Path="/5E7940EB/5E7ACA5B" Ref="R?"  Part="1" 
+F 0 "R?" H 4270 2946 50  0000 L CNN
+F 1 "R" H 4270 2855 50  0000 L CNN
+F 2 "" V 4130 2900 50  0001 C CNN
+F 3 "~" H 4200 2900 50  0001 C CNN
+	1    4200 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E7B093C
+P 4100 3050
+AR Path="/5E77AF45/5E7B093C" Ref="#PWR?"  Part="1" 
+AR Path="/5E7940EB/5E7B093C" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4100 2800 50  0001 C CNN
+F 1 "GND" V 4105 2922 50  0000 R CNN
+F 2 "" H 4100 3050 50  0001 C CNN
+F 3 "" H 4100 3050 50  0001 C CNN
+	1    4100 3050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4000 2350 4200 2350
+Wire Wire Line
+	4200 2650 4200 2700
+Wire Wire Line
+	4300 2700 4200 2700
+Connection ~ 4200 2700
+Wire Wire Line
+	4200 2700 4200 2750
+Wire Wire Line
+	4200 3050 4100 3050
+$EndSCHEMATC
