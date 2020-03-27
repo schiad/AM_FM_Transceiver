@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 5
+Sheet 4 6
 Title "AM & FM Transceiver"
 Date ""
 Rev ""
@@ -54,19 +54,6 @@ F 2 "" H 4488 2550 50  0001 C CNN
 F 3 "~" H 4450 2700 50  0001 C CNN
 	1    4450 2700
 	0    1    1    0   
-$EndComp
-$Comp
-L Amplifier_Operational:LM321 U?
-U 1 1 5E77E0AD
-P 5650 2800
-AR Path="/5E77AF45/5E77E0AD" Ref="U?"  Part="1" 
-AR Path="/5E7940EB/5E77E0AD" Ref="U?"  Part="1" 
-F 0 "U?" H 5994 2846 50  0000 L CNN
-F 1 "LM321" H 5994 2755 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5" H 5650 2800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm321.pdf" H 5650 2800 50  0001 C CNN
-	1    5650 2800
-	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	5350 2700 4800 2700
@@ -423,4 +410,15 @@ Wire Wire Line
 	4200 2700 4200 2750
 Wire Wire Line
 	4200 3050 4100 3050
+$Comp
+L Amplifier_Operational:AD8001AN U?
+U 1 1 5E7C4873
+P 5650 2800
+F 0 "U?" H 5650 2950 50  0000 L CNN
+F 1 "AD8001AN" H 5650 2650 50  0000 L CNN
+F 2 "Package_DIP:DIP-8_W7.62mm" H 5550 2600 50  0001 L CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8001.pdf" H 5800 2950 50  0001 C CNN
+	1    5650 2800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

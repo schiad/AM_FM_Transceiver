@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 6
 Title "AM & FM Transceiver"
 Date ""
 Rev ""
@@ -66,12 +66,12 @@ $EndComp
 Text Notes 6950 1000 0    50   ~ 0
 Nota: Vcc 4.5-8.0v
 $Sheet
-S 3500 1100 1150 200 
+S 3600 1550 1150 200 
 U 5E70F6BF
 F0 "Si5351 atenuator" 50
 F1 "Si5351_Filter.sch" 50
-F2 "Clk0_Fi" I L 3500 1200 50 
-F3 "Clk0_Fo" I R 4650 1200 50 
+F2 "Clk0_Fi" I L 3600 1650 50 
+F3 "Clk0_Fo" I R 4750 1650 50 
 $EndSheet
 Wire Wire Line
 	2250 1400 2400 1400
@@ -87,9 +87,9 @@ U 5E710609
 F0 "MCU" 50
 F1 "MCU.sch" 50
 $EndSheet
-Text Label 3500 1200 2    50   ~ 0
+Text Label 3600 1650 2    50   ~ 0
 Clk0_Fi
-Text Label 4650 1200 0    50   ~ 0
+Text Label 4750 1650 0    50   ~ 0
 Clk0_Fo
 Text Notes 1000 1150 0    50   ~ 0
 Nota: Vcc 3.3v
@@ -97,25 +97,10 @@ Wire Wire Line
 	2350 3700 2250 3700
 Text Label 2350 3700 0    50   ~ 0
 MClk_Fi
-$Sheet
-S 3500 3500 1100 300 
-U 5E71DA61
-F0 "AD9833 Filter" 50
-F1 "AD98333 filter.sch" 50
-F2 "MClk_Fi" I L 3500 3600 50 
-F3 "IN_A_Out" I R 4600 3600 50 
-F4 "IN_B_Out" I R 4600 3700 50 
-$EndSheet
 Text Label 6950 1300 2    50   ~ 0
 IN_A_Out
 Text Label 6950 1400 2    50   ~ 0
 IN_B_Out
-Text Label 4600 3600 0    50   ~ 0
-IN_A_Out
-Text Label 4600 3700 0    50   ~ 0
-IN_B_Out
-Text Label 3500 3600 2    50   ~ 0
-MClk_Fi
 Text Label 1300 3600 2    50   ~ 0
 SS_AD9833
 Text Label 1300 3700 2    50   ~ 0
@@ -239,33 +224,95 @@ Text Label 5850 7200 2    50   ~ 0
 SAI_SD
 Text Label 5850 7100 2    50   ~ 0
 SAI_FS
-Text Notes 4550 3450 0    50   ~ 0
+Text Notes 5700 3350 0    50   ~ 0
 Nota : IN_A & IN_B are biased internally, They are symmetrical.\nEquivalent AC impédance 1.5Khos 3pF 50MHz.\n
-$Comp
-L Device:Q_NPN_BCE Q?
-U 1 1 5E76FBFD
-P 9700 1750
-F 0 "Q?" H 9891 1796 50  0000 L CNN
-F 1 "Q_NPN_BCE" H 9891 1705 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-323_SC-70_Handsoldering" H 9900 1850 50  0001 C CNN
-F 3 "~" H 9700 1750 50  0001 C CNN
-	1    9700 1750
-	1    0    0    -1  
-$EndComp
 $Sheet
-S 3650 5550 1150 350 
+S 7300 5450 1150 450 
 U 5E77AF45
 F0 "AM Module" 50
 F1 "AM Module.sch" 50
-F2 "HF" I L 3650 5800 50 
-F3 "BF" I L 3650 5700 50 
-F4 "Feed_BackBFin" I R 4800 5700 50 
-F5 "Feed_BackBFout" I R 4800 5800 50 
+F2 "HF" I L 7300 5700 50 
+F3 "BF" I L 7300 5600 50 
+F4 "Feed_BackBFin" I R 8450 5600 50 
+F5 "Feed_BackBFout" I R 8450 5700 50 
 $EndSheet
 Wire Wire Line
 	2400 1600 2250 1600
 Text Label 2400 1600 0    50   ~ 0
 Clk1_Fi
-Text Label 3650 5800 2    50   ~ 0
+Text Label 7300 5700 2    50   ~ 0
 Clk1_Fi
+Text Label 5850 7600 2    50   ~ 0
+FBBFin
+Text Label 5850 7500 2    50   ~ 0
+FBBFout
+Text Label 8450 5600 0    50   ~ 0
+FBBFin
+Text Label 8450 5700 0    50   ~ 0
+FBBFout
+Text Label 4650 3500 2    50   ~ 0
+MClk_Fi
+Text Label 5750 3500 0    50   ~ 0
+IN_A_Out
+$Sheet
+S 4650 3400 1100 200 
+U 5E71DA61
+F0 "AD9833 Filter" 50
+F1 "AD98333 filter.sch" 50
+F2 "MClk_Fi" I L 4650 3500 50 
+F3 "IN_A_Out" O R 5750 3500 50 
+$EndSheet
+Text HLabel 8450 5800 0    50   Input ~ 0
+AM_Out
+Text Label 8450 5800 0    50   ~ 0
+AM_Out
+Text Label 7300 5600 2    50   ~ 0
+BF_IN_AM
+Text Label 5500 5550 0    50   ~ 0
+BF_IN_AM
+Text Label 4950 5650 2    50   ~ 0
+OutL
+Text Label 4950 5550 2    50   ~ 0
+OutR
+$Comp
+L Device:R R?
+U 1 1 5E7DE6C9
+P 5200 5550
+F 0 "R?" V 4993 5550 50  0000 C CNN
+F 1 "R" V 5084 5550 50  0000 C CNN
+F 2 "" V 5130 5550 50  0001 C CNN
+F 3 "~" H 5200 5550 50  0001 C CNN
+	1    5200 5550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5E7DEE26
+P 5200 5650
+F 0 "R?" V 4993 5650 50  0000 C CNN
+F 1 "R" V 5084 5650 50  0000 C CNN
+F 2 "" V 5130 5650 50  0001 C CNN
+F 3 "~" H 5200 5650 50  0001 C CNN
+	1    5200 5650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5500 5550 5450 5550
+Wire Wire Line
+	5350 5650 5450 5650
+Wire Wire Line
+	5450 5650 5450 5550
+Connection ~ 5450 5550
+Wire Wire Line
+	5450 5550 5350 5550
+Wire Wire Line
+	4950 5650 5050 5650
+Wire Wire Line
+	4950 5550 5050 5550
+$Sheet
+S 5200 4350 1150 250 
+U 5E7F5958
+F0 "LEDS" 50
+F1 "LEDs_indicators.sch" 50
+$EndSheet
 $EndSCHEMATC
