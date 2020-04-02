@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 6
+Sheet 4 5
 Title "AM & FM Transceiver"
 Date ""
 Rev ""
@@ -421,4 +421,6 @@ F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8001.
 	1    5650 2800
 	1    0    0    -1  
 $EndComp
+Text Notes 6750 3300 0    50   ~ 0
+bc557?
 $EndSCHEMATC
