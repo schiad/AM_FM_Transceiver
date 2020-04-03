@@ -7,6 +7,7 @@ $ENDCMP
 #
 $CMP SA612A
 D Double-balanced mixer and oscillator
+F https://www.nxp.com/docs/en/data-sheet/SA612A.pdf
 $ENDCMP
 #
 #End Doc Library
