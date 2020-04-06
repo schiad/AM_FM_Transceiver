@@ -1,0 +1,23 @@
+Circuit: * Z:\media\salim\home2\salim\KiCad\AM_FM_Transceiver\LTSpice\NPN.asc
+
+WARNING: Specified period is not longer than the sum of Trise, Tfall, and Ton for v2.  Increasing period to 3e-09
+WARNING: Less than two connections to node NC_01.  This node is used by L1.
+Direct Newton iteration for .op point succeeded.
+
+Date: Mon Apr  6 18:33:05 2020
+Total elapsed time: 14.697 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 5725303
+traniter = 5725298
+tranpoints = 2623860
+accept = 2503796
+rejected = 120064
+matrix size = 15
+fillins = 2
+solver = Normal
+Matrix Compiler1: 1.12 KB object code size  0.2/0.1/[0.1]
+Matrix Compiler2: off  [0.1]/0.1/0.1
+
