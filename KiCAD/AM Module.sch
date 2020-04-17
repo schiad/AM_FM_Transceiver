@@ -801,4 +801,6 @@ Wire Wire Line
 Connection ~ 7750 3850
 Wire Wire Line
 	7750 3850 7750 4300
+Text Notes 8200 3700 0    50   ~ 0
+MMDT5451-7-F
 $EndSCHEMATC
