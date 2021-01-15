@@ -25,6 +25,9 @@
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
 
+/* External functions --------------------------------------------------------*/
+void SystemClock_Config(void);
+
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
 
@@ -61,6 +64,7 @@ extern DMA_HandleTypeDef hdma_spi5_tx;
 extern SPI_HandleTypeDef hspi5;
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim11;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -230,6 +234,21 @@ void TIM1_UP_TIM10_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles TIM1 trigger and commutation interrupts and TIM11 global interrupt.
+  */
+void TIM1_TRG_COM_TIM11_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM1_TRG_COM_TIM11_IRQn 0 */
+
+  /* USER CODE END TIM1_TRG_COM_TIM11_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim1);
+  HAL_TIM_IRQHandler(&htim11);
+  /* USER CODE BEGIN TIM1_TRG_COM_TIM11_IRQn 1 */
+
+  /* USER CODE END TIM1_TRG_COM_TIM11_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM2 global interrupt.
   */
 void TIM2_IRQHandler(void)
@@ -241,6 +260,27 @@ void TIM2_IRQHandler(void)
   /* USER CODE BEGIN TIM2_IRQn 1 */
 
   /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USB On The Go FS wake-up interrupt through EXTI line 18.
+  */
+void OTG_FS_WKUP_IRQHandler(void)
+{
+  /* USER CODE BEGIN OTG_FS_WKUP_IRQn 0 */
+
+  /* USER CODE END OTG_FS_WKUP_IRQn 0 */
+  if ((&hpcd_USB_OTG_FS)->Init.low_power_enable) {
+    /* Reset SLEEPDEEP bit of Cortex System Control Register */
+    SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
+    SystemClock_Config();
+  }
+  __HAL_PCD_UNGATE_PHYCLOCK(&hpcd_USB_OTG_FS);
+  /* Clear EXTI pending bit */
+  __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
+  /* USER CODE BEGIN OTG_FS_WKUP_IRQn 1 */
+
+  /* USER CODE END OTG_FS_WKUP_IRQn 1 */
 }
 
 /**

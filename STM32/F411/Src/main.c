@@ -138,6 +138,10 @@ uint32_t ad_freq = 1000;
 uint64_t si_freq = 3500000;
 uint8_t sw_ad_si_pcm = 0;
 
+//USB AUDIO
+uint16_t audio_len = 0;
+int16_t *audio_buff = 0;
+
 struct NEC NEC1;
 
 uint8_t x, y; // for nokia display position
@@ -170,6 +174,7 @@ DMA_HandleTypeDef hdma_spi5_tx;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim11;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
@@ -194,6 +199,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_RTC_Init(void);
+static void MX_TIM11_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -359,6 +365,7 @@ void nokia_refresh_map(SPI_HandleTypeDef *hspi) {
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	if (htim->Instance == TIM1) {
 		nokia_refresh_map(&hspi5);
+//		audio_fm_modulation();
 	}
 	if (htim->Instance == TIM2) {
 		NEC1.addr = 0;
@@ -371,7 +378,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		NEC1.init_seq = 0;
 		NEC1.repeat = 0;
 	}
+	if (htim->Instance == TIM11) {
+		audio_fm_modulation();
+	}
 }
+
+void NEC_command();
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	if (GPIO_Pin == IR_IN_Pin) {
@@ -462,160 +474,162 @@ void NEC_command() {
 			NEC1.cmd_inv);
 	nokia_str(str, &x, &y);
 	//CDC_Transmit_FS(str, strlen(str));
-
-	if (NEC1.addr == 0x01) {
-		switch (NEC1.cmd) {
-		case 0x10:
-			// power
-			si_freq = 87000000;
-			si_change = 1;
-			break;
-		case 0x03:
-			//source
-			si_freq += 100000000;
-			si_change = 1;
+	if (NEC1.complet) {
+		NEC1.complet = 0;
+		if (NEC1.addr == 0x01 && NEC1.repeat) {
+			switch (NEC1.cmd) {
+			case 0x10:
+				// power
+				si_freq = 87000000;
+				si_change = 1;
+				break;
+			case 0x03:
+				//source
+				si_freq += 100000000;
+				si_change = 1;
 //			if (!NEC1.repeat) {
 //				sw_ad_si_pcm++;
 //				sw_ad_si_pcm = sw_ad_si_pcm % 3;
 //			}
-			break;
-		case 0x01:
-			//ratio
-			si_freq += 10000000;
-			si_change = 1;
-			break;
-		case 0x06:
-			//mute
-			si_freq += 1000000;
-			si_change = 1;
-			break;
-		case 0x09:
-			//power_s
-			si_freq = 3500000;
-			si_change = 1;
-			break;
-		case 0x1D:
-			//up
-			si_freq -= 100000000;
-			si_change = 1;
-			break;
-		case 0x1F:
-			//auto
-			si_freq -= 10000000;
-			si_change = 1;
-			break;
-		case 0x0D:
-			//info
-			si_freq -= 1000000;
-			si_change = 1;
-			break;
-		case 0x19:
-			//left
-			si_freq += 100000;
-			si_change = 1;
-			break;
-		case 0x1B:
-			//menu
-			si_freq += 10000;
-			si_change = 1;
-			break;
-		case 0x11:
-			//right
-			si_freq += 1000;
-			si_change = 1;
-			break;
-		case 0x15:
-			//freeze
-			si_freq += 100;
-			si_change = 1;
-			break;
-		case 0x17:
-			//exit
-			si_freq -= 100000;
-			si_change = 1;
-			break;
-		case 0x12:
-			//down
-			si_freq -= 10000;
-			si_change = 1;
-			break;
-		case 0x16:
-			//sensor
-			si_freq -= 1000;
-			si_change = 1;
-			break;
-		case 0x4D:
-			//lock
-			si_freq -= 100;
-			si_change = 1;
-			break;
-		case 0x40:
-			//1
-			ad_freq = 1000;
-			break;
-		case 0x4C:
-			//2
-			ad_freq += 1000000;
-			break;
-		case 0x04:
-			//3
-			ad_freq += 100000;
-			break;
-		case 0x00:
-			//VGA
-			ad_freq += 10000;
-			break;
-		case 0x0A:
-			//4
-			ad_freq = 100000;
-			break;
-		case 0x1E:
-			//5
-			ad_freq -= 1000000;
-			break;
-		case 0x0E:
-			//6
-			ad_freq -= 100000;
-			break;
-		case 0x1A:
-			//hdmi
-			ad_freq -= 10000;
-			break;
-		case 0x1C:
-			//7
-			ad_freq += 1000;
-			break;
-		case 0x14:
-			//8
-			ad_freq += 100;
-			break;
-		case 0x0F:
-			//9
-			ad_freq += 10;
-			break;
-		case 0x0C:
-			//AV
-			ad_freq += 1;
-			break;
-		case 0x02:
-			//swap
-			ad_freq -= 1000;
-			break;
-		case 0x48:
-			//0
-			ad_freq -= 100;
-			break;
-		case 0x54:
-			//pip
-			ad_freq -= 10;
-			break;
-		case 0x05:
-			//pop
-			ad_freq -= 1;
-			break;
+				break;
+			case 0x01:
+				//ratio
+				si_freq += 10000000;
+				si_change = 1;
+				break;
+			case 0x06:
+				//mute
+				si_freq += 1000000;
+				si_change = 1;
+				break;
+			case 0x09:
+				//power_s
+				si_freq = 3500000;
+				si_change = 1;
+				break;
+			case 0x1D:
+				//up
+				si_freq -= 100000000;
+				si_change = 1;
+				break;
+			case 0x1F:
+				//auto
+				si_freq -= 10000000;
+				si_change = 1;
+				break;
+			case 0x0D:
+				//info
+				si_freq -= 1000000;
+				si_change = 1;
+				break;
+			case 0x19:
+				//left
+				si_freq += 100000;
+				si_change = 1;
+				break;
+			case 0x1B:
+				//menu
+				si_freq += 10000;
+				si_change = 1;
+				break;
+			case 0x11:
+				//right
+				si_freq += 1000;
+				si_change = 1;
+				break;
+			case 0x15:
+				//freeze
+				si_freq += 100;
+				si_change = 1;
+				break;
+			case 0x17:
+				//exit
+				si_freq -= 100000;
+				si_change = 1;
+				break;
+			case 0x12:
+				//down
+				si_freq -= 10000;
+				si_change = 1;
+				break;
+			case 0x16:
+				//sensor
+				si_freq -= 1000;
+				si_change = 1;
+				break;
+			case 0x4D:
+				//lock
+				si_freq -= 100;
+				si_change = 1;
+				break;
+			case 0x40:
+				//1
+				ad_freq = 1000;
+				break;
+			case 0x4C:
+				//2
+				ad_freq += 1000000;
+				break;
+			case 0x04:
+				//3
+				ad_freq += 100000;
+				break;
+			case 0x00:
+				//VGA
+				ad_freq += 10000;
+				break;
+			case 0x0A:
+				//4
+				ad_freq = 100000;
+				break;
+			case 0x1E:
+				//5
+				ad_freq -= 1000000;
+				break;
+			case 0x0E:
+				//6
+				ad_freq -= 100000;
+				break;
+			case 0x1A:
+				//hdmi
+				ad_freq -= 10000;
+				break;
+			case 0x1C:
+				//7
+				ad_freq += 1000;
+				break;
+			case 0x14:
+				//8
+				ad_freq += 100;
+				break;
+			case 0x0F:
+				//9
+				ad_freq += 10;
+				break;
+			case 0x0C:
+				//AV
+				ad_freq += 1;
+				break;
+			case 0x02:
+				//swap
+				ad_freq -= 1000;
+				break;
+			case 0x48:
+				//0
+				ad_freq -= 100;
+				break;
+			case 0x54:
+				//pip
+				ad_freq -= 10;
+				break;
+			case 0x05:
+				//pop
+				ad_freq -= 1;
+				break;
 
-		default:
-			break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -625,6 +639,14 @@ void NEC_command() {
 		si5351_freq(2, si_freq * 100);
 		si5351_freq(0, si_freq * 100);
 	}
+}
+
+void audio_fm_modulation() {
+	static uint16_t iter = 0;
+	AD9833_set(&hspi1, ad_freq + *(audio_buff + iter) + *(audio_buff + iter + 1), 0, 0);
+	iter += 2;
+	if (iter >= audio_len)
+		iter = 0;
 }
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
@@ -808,6 +830,12 @@ void MCP_4651_set(uint8_t ch, uint8_t val) {
  }
  */
 
+// USB AUDIO
+extern void Audio_setup(int16_t *buff, uint32_t len) {
+	audio_len = len;
+	audio_buff = buff;
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -857,6 +885,7 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM2_Init();
   MX_RTC_Init();
+  MX_TIM11_Init();
   /* USER CODE BEGIN 2 */
 //	MX_RTC_Init();
 //	HAL_RTC_Init(&hrtc);
@@ -867,6 +896,7 @@ int main(void)
 	nokia_str("AM_FM_Tx F4IFB", &x, &y);
 	HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_Base_Start_IT(&htim11);
 	HAL_TIM_PWM_Start_IT(&htim1, TIM_CHANNEL_2);
 	AD9833_set(&hspi1, ad_freq, 0, 1);
 	si5351_Init();
@@ -885,10 +915,10 @@ int main(void)
 	while (1) {
 		p0++;
 		MCP_4651_set(0, p0);
-		HAL_Delay(1000);
+		HAL_Delay(20);
 		if (NEC1.complet) {
 			NEC_command();
-//			NEC1.complet = 0;
+			NEC1.complet = 0;
 		}
 		x = 0;
 		y = 1;
@@ -902,12 +932,25 @@ int main(void)
 //		Time.Seconds;
 		sprintf(str, "%hu:%hu:%hu\0", Time.Hours, Time.Minutes, Time.Seconds);
 		nokia_str(str, &x, &y);
+		x = 0;
+		y = 2;
+		sprintf(str, "%X*%x", audio_buff, audio_len);
+		nokia_str(str, &x, &y);
 		i++;
 		//HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 		x = 0;
 		y = 3;
 		sprintf(str, "%lu      \0", si_freq);
 		nokia_str(str, &x, &y);
+//		if (audio_buff && audio_len) {
+		x = 0;
+		y = 4;
+		sprintf(str, "%lu %X  ", i, *(audio_buff + i));
+		nokia_str(str, &x, &y);
+		i++;
+		if (i >= audio_len)
+			i = 0;
+//		}
 
     /* USER CODE END WHILE */
 
@@ -1212,7 +1255,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -1286,7 +1329,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 959;
+  htim1.Init.Prescaler = 100;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 999;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -1382,6 +1425,37 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief TIM11 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM11_Init(void)
+{
+
+  /* USER CODE BEGIN TIM11_Init 0 */
+
+  /* USER CODE END TIM11_Init 0 */
+
+  /* USER CODE BEGIN TIM11_Init 1 */
+
+  /* USER CODE END TIM11_Init 1 */
+  htim11.Instance = TIM11;
+  htim11.Init.Prescaler = 12;
+  htim11.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim11.Init.Period = 334;
+  htim11.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim11.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim11) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM11_Init 2 */
+
+  /* USER CODE END TIM11_Init 2 */
 
 }
 

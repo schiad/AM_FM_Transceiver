@@ -187,9 +187,11 @@ static int8_t AUDIO_AudioCmd_FS(uint8_t* pbuf, uint32_t size, uint8_t cmd)
   switch(cmd)
   {
     case AUDIO_CMD_START:
+    	Audio_setup((int16_t *) pbuf, size);
     break;
 
     case AUDIO_CMD_PLAY:
+    	Audio_setup((int16_t *) pbuf, size);
     break;	
   }
   UNUSED(pbuf);
